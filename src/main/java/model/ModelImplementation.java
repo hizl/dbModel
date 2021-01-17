@@ -15,6 +15,7 @@ public class ModelImplementation implements BooksDAO {
     private static final String FIND_ALL_STATEMENT = "SELECT ID, TITLE, PAGES_COUNT FROM BOOKS_TABLE;";
     private static final String FIND_BY_ID_STATEMENT = "SELECT ID, TITLE, PAGES_COUNT FROM BOOKS_TABLE WHERE ID=?";
     private static final String DELETE_BY_ID_STATEMENT = "DELETE FROM BOOKS_TABLE WHERE ID=?";
+    private static final String SAVE_STATEMENT = "INSERT INTO BOOKS_TABLE(TITLE, PAGES_COUNT) VALUES(?,?);";
 
 
     // obtain CONNECTION session with using " work context entry" for connection database and using it
@@ -104,7 +105,28 @@ public class ModelImplementation implements BooksDAO {
 
     @Override
     public BookModel save(BookModel bookModel) {
-        return null;
+        Connection connection = getConnection();
+        try {
+
+
+            PreparedStatement preparedStatement = connection.prepareStatement(SAVE_STATEMENT);
+
+           // preparedStatement.setInt(1, bookModel.getId());
+            preparedStatement.setString(1, bookModel.getTitle());
+            preparedStatement.setInt(2, bookModel.getPagesCount());
+
+
+            preparedStatement.executeUpdate();
+
+
+        } catch (SQLException e) {
+            System.out.println("Error saving " + e.getMessage() + "\n");
+            close(connection);
+        }
+
+
+        close(connection);
+        return bookModel;
     }
 
     @Override
@@ -123,6 +145,7 @@ public class ModelImplementation implements BooksDAO {
 
         } catch (SQLException e) {
             System.err.println("Exception while saving the book " + e.getMessage());
+            close(connection);
         }
     }
 

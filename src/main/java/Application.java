@@ -16,23 +16,23 @@ public class Application {
             System.out.println("Menu");
 
             BooksDAO booksDAO = new ModelImplementation();
-            List<BookModel> bookModels = booksDAO.findAll() ;
+
 
             String command = scanner.nextLine();
 
 
             switch (command) {
-//
-//                case ("save") : {
-//
-//                   bookModels.setTitle()
-//                    booksDAO.save()
-//
-//
-//                    break;
-//                }
-//
-                
+                case ("save"): {
+                    BookModel bookModel = new BookModel();
+
+
+                    bookModel.setTitle("New Book " );
+                    bookModel.setPagesCount(999);
+                    System.out.println("SAVE" + booksDAO.save(bookModel));
+
+                    break;
+                }
+
 
                 case ("find"): {
 
