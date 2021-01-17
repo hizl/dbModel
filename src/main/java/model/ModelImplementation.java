@@ -7,14 +7,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BooksDaoImpliments implements BooksDAO {
+
+public class ModelImplementation implements BooksDAO {
 
 
     //request from database
     private static final String FIND_ALL_STATEMENT = "SELECT ID, TITLE, PAGES_COUNT FROM BOOKS_TABLE;";
     private static final String FIND_BY_ID_STATEMENT = "SELECT ID, TITLE, PAGES_COUNT FROM BOOKS_TABLE WHERE ID=?";
-    private static final  String DELETE_BY_ID_STATEMENT = "DELETE BY ID, FROM BOOKS_TABLE WHERE ID=?";
-    
+    private static final String DELETE_BY_ID_STATEMENT = "DELETE FROM BOOKS_TABLE WHERE ID=?";
 
 
     // obtain CONNECTION session with using " work context entry" for connection database and using it
@@ -110,6 +110,20 @@ public class BooksDaoImpliments implements BooksDAO {
     @Override
     public void delete(Integer id) {
 
+        Connection connection = getConnection();
+
+        try {
+            PreparedStatement prepsStatement = connection.prepareStatement(DELETE_BY_ID_STATEMENT);
+
+            prepsStatement.setInt(1, id);
+
+            prepsStatement.executeUpdate();
+
+            close(connection);
+
+        } catch (SQLException e) {
+            System.err.println("Exception while saving the book " + e.getMessage());
+        }
     }
 
 
