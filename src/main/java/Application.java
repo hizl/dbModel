@@ -11,18 +11,20 @@ public class Application {
     public static void main(String[] args) {
 
 
-        BooksDAO booksDao = new BooksDaoImpliments();
+        while (true) {
+            BooksDAO booksDao = new BooksDaoImpliments();
 
-        List<BookModel> findBooks = booksDao.findAll();
-        findBooks.forEach(System.out::println);
+            List<BookModel> findBooks = booksDao.findAll();
+            findBooks.forEach(System.out::println);
 
-        System.out.println("****************************\n");
+            System.out.println("****************************\n");
 
-        System.out.println(booksDao.findBy(scanner.nextInt()));
-        //you can hardcode the value
+            System.out.println(booksDao.findBy(scanner.nextInt()));
+            //you can hardcode the value
 
-        System.out.println("****************************\n");
+            System.out.println("****************************\n");
 
 
+        }
     }
 }
