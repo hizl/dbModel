@@ -60,8 +60,6 @@ public class Running extends Thread {
                     break;
                 }
             }
-
         }
     }
-
 }
